@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northeast Zouk — World-champion Brazilian Zouk in Rochester, NY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root {
+    /* Color */
+    --ink:        #1A1A1A;   /* primary text, near-black */
+    --ink-soft:   #2E2A26;   /* warm dark for body */
+    --paper:      #F5EFE6;   /* cream background */
+    --paper-2:    #EAE2D4;   /* deeper cream for sections */
+    --paper-3:    #FAF6EF;   /* lightest cream */
+    --rust:       #B5462C;   /* signature accent — terracotta/cinnabar */
+    --rust-deep:  #8E331E;   /* hover/active accent */
+    --rule:       rgba(46, 42, 38, 0.25); /* hairline rules */
+    --muted:      #6B635A;   /* secondary text */
+
+    /* Type */
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --body:    'Inter Tight', -apple-system, sans-serif;
+
+    /* Scale */
+    --step--1: clamp(0.83rem, 0.78rem + 0.2vw, 0.95rem);
+    --step-0:  clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
+    --step-1:  clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
+    --step-2:  clamp(1.5rem, 1.3rem + 0.8vw, 1.95rem);
+    --step-3:  clamp(2rem, 1.6rem + 1.6vw, 3rem);
+    --step-4:  clamp(2.8rem, 2.2rem + 2.6vw, 4.5rem);
+    --step-5:  clamp(4rem, 3rem + 4.5vw, 7.5rem);
+
+    /* Space */
+    --gutter: clamp(1.25rem, 2vw, 2rem);
+    --max-w: 1240px;
+  }
+
+  /* ============ RESET ============ */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+
+  /* Subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============ TYPOGRAPHY ============ */
+  .display {
+    font-family: var(--display);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144;
+  }
+  .eyebrow {
+    font-family: var(--body);
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+  }
+  .italic-serif {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ============ LAYOUT ============ */
+  .wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+  }
+  section { padding-block: clamp(4rem, 8vw, 8rem); }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: sticky; top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-block: 1rem;
+  }
+  .logo {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: var(--step-1);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: flex; align-items: baseline; gap: 0.4rem;
+  }
+  .logo .heart { color: var(--rust); font-size: 0.8em; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rust); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.65rem 1.25rem;
+    border-radius: 999px;
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--rust); }
+  @media (max-width: 720px) {
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding-block: clamp(3rem, 6vw, 6rem) clamp(4rem, 8vw, 8rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+  .hero-eyebrow {
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-eyebrow::before {
+    content: ""; display: block; width: 28px; height: 1px;
+    background: var(--rust);
+  }
+  .hero h1 {
+    font-size: var(--step-5);
+    margin: 0 0 1.5rem;
+  }
+  .hero h1 .italic-serif {
+    color: var(--rust);
+  }
+  .hero-lede {
+    font-size: var(--step-1);
+    line-height: 1.45;
+    max-width: 38ch;
+    margin-bottom: 2.25rem;
+    color: var(--ink-soft);
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: var(--step-0);
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  .btn-primary { background: var(--rust); color: var(--paper-3); }
+  .btn-primary:hover { background: var(--rust-deep); transform: translateY(-1px); }
+  .btn-ghost { color: var(--ink); border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn .arrow { transition: transform 0.2s; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: url('images/pedro-ana-hero.jpeg') center top / cover no-repeat,
+                linear-gradient(135deg, #2a1f1a 0%, #3d2a20 50%, #5a3525 100%);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(46,42,38,0.4);
+  }
+  .hero-visual::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(181,70,44,0.2), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(0,0,0,0.45), transparent 60%);
+  }
+  .hero-visual-label {
+    position: absolute; bottom: 1.25rem; left: 1.5rem; right: 1.5rem;
+    color: var(--paper-3);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--step-0);
+    opacity: 0.85;
+  }
+  .hero-visual-label::before {
+    content: "—";
+    margin-right: 0.5rem;
+    color: var(--rust);
+    font-style: normal;
+  }
+
+  /* Floating credential badge */
+  .badge {
+    position: absolute;
+    top: -1.5rem; right: -1.5rem;
+    background: var(--paper-3);
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    width: 130px; height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 10px 30px -8px rgba(46,42,38,0.2);
+    transform: rotate(-8deg);
+  }
+  .badge-text {
+    font-family: var(--display);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .badge-text strong {
+    display: block;
+    color: var(--rust);
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+  }
+  @media (max-width: 900px) {
+    .badge { width: 100px; height: 100px; top: -1rem; right: 1rem; }
+    .badge-text { font-size: 0.7rem; }
+  }
+
+  /* ============ MARQUEE ============ */
+  .marquee {
+    background: var(--ink);
+    color: var(--paper-3);
+    padding: 1.25rem 0;
+    overflow: hidden;
+    border-block: 1px solid var(--ink);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: marquee 35s linear infinite;
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .marquee-item { display: inline-flex; align-items: center; gap: 3rem; }
+  .marquee-item::after {
+    content: "✦";
+    color: var(--rust);
+    font-style: normal;
+    font-size: 0.7em;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ============ ABOUT (Our Story) ============ */
+  .about { background: var(--paper-2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  @media (max-width: 800px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+  .about h2 {
+    font-size: var(--step-3);
+    margin: 1rem 0 0;
+    max-width: 12ch;
+  }
+  .about-body p {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    margin: 0 0 1.5rem;
+    max-width: 60ch;
+  }
+  .about-body p:first-child::first-letter {
+    font-family: var(--display);
+    font-size: 4.5em;
+    float: left;
+    line-height: 0.8;
+    margin: 0.05em 0.1em 0 0;
+    color: var(--rust);
+    font-weight: 500;
+  }
+  .pull-quote {
+    border-left: 3px solid var(--rust);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--step-2);
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 2rem 0;
+  }
+
+  /* ============ INSTRUCTORS ============ */
+  .instructors {
+    position: relative;
+  }
+  .section-head {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1.5rem;
+  }
+  .section-head h2 {
+    font-size: var(--step-4);
+    margin: 0.5rem 0 0;
+    max-width: 14ch;
+  }
+  .section-head .meta {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--muted);
+    font-size: var(--step-1);
+    text-align: right;
+    max-width: 28ch;
+  }
+  @media (max-width: 700px) {
+    .section-head { flex-direction: column; align-items: start; }
+    .section-head .meta { text-align: left; }
+  }
+
+  .instructor-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+  @media (max-width: 700px) {
+    .instructor-row { grid-template-columns: 1fr; }
+  }
+  .instructor {
+    display: flex; flex-direction: column;
+  }
+  .instructor-photo {
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #3d2a20, #1f1612);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .instructor-photo::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(181,70,44,0.25), transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.4), transparent 50%);
+  }
+  .instructor-name {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .instructor-title {
+    font-size: var(--step--1);
+    color: var(--rust);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .instructor p {
+    font-size: var(--step-0);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  /* ============ CLASSES ============ */
+  .classes { background: var(--ink); color: var(--paper-3); }
+  .classes h2 { color: var(--paper-3); }
+  .classes .section-head { border-bottom-color: rgba(245,239,230,0.2); }
+  .classes .meta { color: rgba(245,239,230,0.7); }
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .class-card {
+    border: 1px solid rgba(245,239,230,0.15);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    position: relative;
+  }
+  .class-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--rust);
+    background: rgba(181,70,44,0.06);
+  }
+  .class-day {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--rust);
+    font-size: var(--step-0);
+    margin-bottom: 0.5rem;
+  }
+  .class-name {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 500;
+    color: var(--paper-3);
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .class-time {
+    font-size: var(--step--1);
+    color: rgba(245,239,230,0.75);
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+  }
+  .class-desc {
+    font-size: var(--step-0);
+    color: rgba(245,239,230,0.85);
+    margin: 0 0 1.5rem;
+    line-height: 1.5;
+  }
+  .class-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    border: 1px solid var(--rust);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+  }
+
+  /* ============ FIRST TIME ============ */
+  .first-time {
+    background: var(--paper-3);
+  }
+  .ft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .ft-item {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .ft-num {
+    font-family: var(--display);
+    font-size: var(--step-3);
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .ft-item h3 {
+    font-family: var(--display);
+    font-size: var(--step-1);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+  }
+  .ft-item p {
+    font-size: var(--step-0);
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  /* ============ PRICING ============ */
+  .pricing { background: var(--paper-2); }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 3rem;
+  }
+  .price-card {
+    background: var(--paper-2);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .price-card.featured { background: var(--ink); color: var(--paper-3); }
+  .price-card:hover:not(.featured) { background: var(--paper-3); }
+  .price-label {
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--muted);
+  }
+  .price-card.featured .price-label { color: var(--rust); }
+  .price-amount {
+    font-family: var(--display);
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .price-card.featured .price-amount { color: var(--paper-3); }
+  .price-amount .currency {
+    font-size: 0.5em;
+    vertical-align: top;
+    color: var(--rust);
+    margin-right: 0.1em;
+  }
+  .price-meta {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+  .price-card.featured .price-meta { color: rgba(245,239,230,0.7); }
+
+  /* ============ CTA STRIP ============ */
+  .cta-strip {
+    text-align: center;
+    background: var(--paper);
+  }
+  .cta-strip h2 {
+    font-size: var(--step-4);
+    margin: 0 auto 1.5rem;
+    max-width: 18ch;
+  }
+  .cta-strip h2 em { color: var(--rust); font-style: italic; font-weight: 400; }
+  .cta-strip p {
+    font-size: var(--step-1);
+    max-width: 50ch;
+    margin: 0 auto 2.5rem;
+    color: var(--ink-soft);
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    background: var(--ink);
+    color: var(--paper-3);
+    padding: 4rem 0 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 700px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+  .footer h4 {
+    font-family: var(--body);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin: 0 0 1rem;
+    font-weight: 500;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; }
+  .footer li { margin-bottom: 0.5rem; }
+  .footer a {
+    color: rgba(245,239,230,0.85);
+    transition: color 0.2s;
+  }
+  .footer a:hover { color: var(--rust); }
+  .footer-tagline {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: var(--step-2);
+    line-height: 1.3;
+    color: var(--paper-3);
+    max-width: 22ch;
+    margin: 0 0 1.5rem;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(245,239,230,0.15);
+    padding-top: 1.5rem;
+    display: flex; justify-content: space-between;
+    font-size: var(--step--1);
+    color: rgba(245,239,230,0.6);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  /* ============ FADE-IN ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="#" class="logo">Northeast Zouk<span class="heart">♥</span></a>
+      <nav class="nav-links">
+        <a href="#story">Our Story</a>
+        <a href="#instructors">Pedro &amp; Ana</a>
+        <a href="#classes">Classes</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#" class="nav-cta">Join Wednesday Free</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow eyebrow">Rochester · NY · Est. 2024</div>
+        <h1 class="display">
+          Brazilian Zouk, <br>
+          taught weekly in <span class="italic-serif">Rochester.</span>
+        </h1>
+        <p class="hero-lede">
+          Wednesday is free, every week. No partner needed, no experience required.
+          Your teachers are from Rio — world champions who genuinely love teaching beginners.
+        </p>
+        <div class="hero-ctas">
+          <a href="#classes" class="btn btn-primary">
+            Try Wednesday — it's free <span class="arrow">→</span>
+          </a>
+          <a href="#story" class="btn btn-ghost">What is Zouk?</a>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div class="hero-visual">
+          <div class="hero-visual-label italic-serif">
+            Pedro &amp; Ana, Rochester, NY
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OUR STORY ============ -->
+  <section class="about" id="story">
+    <div class="wrap about-grid reveal">
+      <div>
+        <div class="eyebrow">Our Story</div>
+        <h2 class="display">A small studio with a big lineage.</h2>
+      </div>
+      <div class="about-body">
+        <p>
+          Kaylyn Morton and JR Lam have been dancing Brazilian Zouk together for
+          nearly ten years. As the dance grew deeper in their lives, a question kept
+          surfacing: why isn't this here? Why do you have to fly to a major city —
+          or to Brazil — just to learn from someone who really knows it?
+        </p>
+        <div class="pull-quote">
+          "The more people dancing Zouk, the better. That means making it easy to start."
+        </div>
+        <p>
+          That belief led them to Pedro Castro and Ana Reis — 2024 Brazilian Zouk
+          World Champions, trained at Centro de Dança Alex de Carvalho in Rio —
+          and to bringing them to Western New York as resident instructors. It also
+          led to an uncommon decision: Wednesday Level 1 is free. Every week.
+          For anyone who walks in. The school is community-funded so the teaching
+          stays world-class and the door stays open.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIRST TIME ============ -->
+  <section class="first-time">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">If it's your first time</div>
+          <h2 class="display">Here's what to know.</h2>
+        </div>
+      </div>
+      <div class="ft-grid">
+        <div class="ft-item">
+          <div class="ft-num">01</div>
+          <h3>What to wear</h3>
+          <p>Comfortable clothes and soft-soled shoes you can move in. No heels, no flip flops.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">02</div>
+          <h3>When to arrive</h3>
+          <p>10–15 minutes early. Settle in, say hi, meet a few people before class starts.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">03</div>
+          <h3>Need a partner?</h3>
+          <p>No. Come solo. We rotate partners throughout class — everyone dances with everyone.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">04</div>
+          <h3>Parking</h3>
+          <p>Free, on site. The door is on Pitkin Street — come straight in, we'll be there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSTRUCTORS ============ -->
+  <section class="instructors" id="instructors">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">The teachers</div>
+          <h2 class="display">Pedro Castro &amp;<br>Ana Reis.</h2>
+        </div>
+        <div class="meta">
+          Both trained in Rio. Both 2024 World Champions.<br>
+          Teaching here every week.
+        </div>
+      </div>
+      <div class="instructor-row">
+        <div class="instructor">
+          <div class="instructor-photo" style="background-image:url('images/pedro-instructor.jpeg'); background-size:cover; background-position:center top;"></div>
+          <h3 class="instructor-name">Pedro Castro</h3>
+          <div class="instructor-title">Lead Instructor</div>
+          <p>
+            Pedro grew up in Rio and trained at Alex de Carvalho's school — where
+            Brazil's best Zouk teachers come from. He won the 2024 World Championship.
+            He teaches technique with the patience of someone who's been living inside
+            this dance his whole life.
+          </p>
+        </div>
+        <div class="instructor">
+          <div class="instructor-photo" style="background-image:url('images/ana-instructor.jpeg'); background-size:cover; background-position:left top;"></div>
+          <h3 class="instructor-name">Ana Reis</h3>
+          <div class="instructor-title">Lead Instructor</div>
+          <p>
+            Ana has been dancing since she was five. She trained in Rio, won the
+            2024 World Championship, and now spends her weeks teaching connection —
+            the thing that makes Zouk feel unlike every other partner dance you've
+            tried. She makes it click fast.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top: clamp(2.5rem, 5vw, 4rem);">
+        <div class="eyebrow" style="margin-bottom: 1rem;">Watch them dance</div>
+        <div style="position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; background:#1a1a1a;">
+          <iframe
+            src="https://www.youtube.com/embed/eV0Yx5la4I4?rel=0"
+            title="Pedro and Ana — 1st Place Showtime Division, Brazilian Zouk World Championships"
+            style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <p style="font-family:var(--display); font-style:italic; color:var(--muted); font-size:var(--step--1); margin:0.75rem 0 0;">
+          1st place, Showtime Division — Brazilian Zouk World Championships 2024
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLASSES ============ -->
+  <section class="classes" id="classes">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow" style="color: var(--rust)">The schedule</div>
+          <h2 class="display">Classes this week.</h2>
+        </div>
+        <div class="meta">
+          Elevate Dance Center · 17 Pitkin Street, Rochester.
+        </div>
+      </div>
+      <div class="class-grid">
+        <div class="class-card">
+          <div class="class-day italic-serif">Wednesday</div>
+          <h3 class="class-name">Zouk Level 1</h3>
+          <div class="class-time">7:00 – 8:00 PM</div>
+          <p class="class-desc">
+            Start here. Learn how Zouk moves and why it feels different from
+            everything else. No experience, no partner, no pressure.
+          </p>
+          <span class="class-tag">Free every week</span>
+        </div>
+        <div class="class-card">
+          <div class="class-day italic-serif">Tuesday</div>
+          <h3 class="class-name">Zouk Level 2</h3>
+          <div class="class-time">7:00 – 8:10 PM</div>
+          <p class="class-desc">
+            You know the basics. Now make them yours. Includes open practice time
+            so you can actually work on what you've learned.
+          </p>
+          <span class="class-tag">Continuing</span>
+        </div>
+        <div class="class-card">
+          <div class="class-day italic-serif">Tuesday</div>
+          <h3 class="class-name">Head Movement</h3>
+          <div class="class-time">7:50 – 9:00 PM</div>
+          <p class="class-desc">
+            Head movement is what makes Zouk look like Zouk. This class is dedicated
+            entirely to it. Runs back-to-back with Level 2 — take both on Tuesday.
+          </p>
+          <span class="class-tag">Technique</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICING ============ -->
+  <section class="pricing" id="pricing">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Pricing</div>
+          <h2 class="display">Simple, honest, no contracts.</h2>
+        </div>
+        <div class="meta">Venmo or cash. We make it easy.</div>
+      </div>
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="price-label">Wednesday Level 1</div>
+          <div class="price-amount">Free</div>
+          <div class="price-meta">Every week, no exceptions</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">Drop-In</div>
+          <div class="price-amount"><span class="currency">$</span>25</div>
+          <div class="price-meta">Per class</div>
+        </div>
+        <div class="price-card featured">
+          <div class="price-label">1 Class / Week</div>
+          <div class="price-amount"><span class="currency">$</span>75</div>
+          <div class="price-meta">Monthly · best for starting</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">2 Classes / Week</div>
+          <div class="price-amount"><span class="currency">$</span>120</div>
+          <div class="price-meta">Monthly</div>
+        </div>
+        <div class="price-card">
+          <div class="price-label">3 Classes / Week</div>
+          <div class="price-amount"><span class="currency">$</span>150</div>
+          <div class="price-meta">Monthly</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA STRIP ============ -->
+  <section class="cta-strip">
+    <div class="wrap reveal">
+      <div class="eyebrow">Come dance</div>
+      <h2 class="display">Wednesday at seven. <em>We'll save you a spot.</em></h2>
+      <p>
+        Wednesday is free, every week — no partner needed, no experience required.
+        The room is warm, the music is good, and you'll be glad you came.
+      </p>
+      <a href="#" class="btn btn-primary">Reserve your spot <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="logo" style="color: var(--paper-3); margin-bottom: 1rem;">
+            Northeast Zouk<span class="heart">♥</span>
+          </div>
+          <p class="footer-tagline">
+            World-champion Brazilian Zouk, taught weekly in Rochester.
+          </p>
+        </div>
+        <div>
+          <h4>Visit</h4>
+          <ul>
+            <li>Elevate Dance Center</li>
+            <li>17 Pitkin Street</li>
+            <li>Rochester, NY 14607</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:dancing@northeastzouk.com">Email us</a></li>
+            <li><a href="https://www.instagram.com/northeastzouk/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Waiver form</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2026 Northeast Zouk</div>
+        <div>Made with ♥ in Rochester</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
