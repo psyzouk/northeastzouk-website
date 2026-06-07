@@ -4,3 +4,12 @@
 !.dev.vars.example
 .env*
 !.env.example
+
+# OS / editor junk
+.DS_Store
+
+# Local Claude Code config
+.claude/
+
+# Local site backups
+northeastzouk.com-backup-*/
