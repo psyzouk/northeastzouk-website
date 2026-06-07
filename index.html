@@ -303,6 +303,13 @@
     margin: 0 0 1.5rem;
     line-height: 1.5;
   }
+  .class-extra {
+    font-size: var(--step--1);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--rust);
+    margin: -0.75rem 0 1.25rem;
+  }
   .class-tag {
     display: inline-block;
     font-size: 0.72rem;
@@ -334,6 +341,18 @@
     font-size: var(--step--1);
     color: rgba(245,239,230,0.6);
     margin: 1rem 0 0;
+  }
+  .travel-note {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(245,239,230,0.15);
+    max-width: 62ch;
+  }
+  .travel-note p {
+    font-size: var(--step-0);
+    color: rgba(245,239,230,0.85);
+    line-height: 1.55;
+    margin: 0;
   }
 
   /* ============ FIRST TIME ============ */
@@ -372,6 +391,16 @@
   }
 
   /* ============ INSTRUCTORS ============ */
+  .curated-note {
+    max-width: 64ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .curated-note p {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
   .instructor-feature {
     display: grid;
     grid-template-columns: 0.85fr 1fr;
@@ -605,6 +634,40 @@
     </div>
   </section>
 
+  <!-- ============ FIRST TIME ============ -->
+  <section class="first-time">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">If it's your first time</div>
+          <h2 class="display">Here's what to know.</h2>
+        </div>
+      </div>
+      <div class="ft-grid">
+        <div class="ft-item">
+          <div class="ft-num">01</div>
+          <h3>What to wear</h3>
+          <p>Comfortable clothes and soft-soled shoes you can move in. No heels, no flip flops.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">02</div>
+          <h3>When to arrive</h3>
+          <p>10–15 minutes early. Settle in, say hi, meet a few people before class starts.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">03</div>
+          <h3>Need a partner?</h3>
+          <p>No. Come solo. We rotate partners throughout class — everyone dances with everyone.</p>
+        </div>
+        <div class="ft-item">
+          <div class="ft-num">04</div>
+          <h3>Parking</h3>
+          <p>Free, on site. The door is on Pitkin Street — come straight in, we'll be there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ CLASSES ============ -->
   <section class="classes" id="classes">
     <div class="wrap reveal">
@@ -627,6 +690,7 @@
             Start here. Learn how Zouk moves and why it feels different from
             everything else. No experience, no partner, no pressure.
           </p>
+          <p class="class-extra">We rotate partners throughout class to help you learn faster and meet your new community.</p>
           <span class="class-tag">Free every week</span>
         </div>
         <div class="class-card">
@@ -674,39 +738,10 @@
         </div>
         <p class="class-note">Weeks we're off (holidays, travel) are taken off the calendar — if it's not here, there's no class that night.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ FIRST TIME ============ -->
-  <section class="first-time">
-    <div class="wrap reveal">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">If it's your first time</div>
-          <h2 class="display">Here's what to know.</h2>
-        </div>
-      </div>
-      <div class="ft-grid">
-        <div class="ft-item">
-          <div class="ft-num">01</div>
-          <h3>What to wear</h3>
-          <p>Comfortable clothes and soft-soled shoes you can move in. No heels, no flip flops.</p>
-        </div>
-        <div class="ft-item">
-          <div class="ft-num">02</div>
-          <h3>When to arrive</h3>
-          <p>10–15 minutes early. Settle in, say hi, meet a few people before class starts.</p>
-        </div>
-        <div class="ft-item">
-          <div class="ft-num">03</div>
-          <h3>Need a partner?</h3>
-          <p>No. Come solo. We rotate partners throughout class — everyone dances with everyone.</p>
-        </div>
-        <div class="ft-item">
-          <div class="ft-num">04</div>
-          <h3>Parking</h3>
-          <p>Free, on site. The door is on Pitkin Street — come straight in, we'll be there.</p>
-        </div>
+      <div class="travel-note">
+        <div class="eyebrow" style="color: var(--rust); margin-bottom: 0.6rem;">Coming from out of town?</div>
+        <p>Driving in from Buffalo or Syracuse? We're easily accessible via I-490 with free, convenient on-site parking.</p>
       </div>
     </div>
   </section>
@@ -723,6 +758,10 @@
           Both trained in Rio. Both 2024 World Champions.<br>
           Teaching here every week.
         </div>
+      </div>
+      <div class="curated-note">
+        <div class="eyebrow" style="margin-bottom: 0.75rem;">Curated training</div>
+        <p>We focus on high-quality, consistent instruction with world-class artists. Because our instructors travel globally, we maintain a focused class environment that allows you to master the technique, build strong foundations, and learn directly from the best in the world.</p>
       </div>
       <div class="instructor-feature">
         <div class="instructor-photo-single" style="background-image:url('images/ana-instructor.jpeg'); background-position:center top;"></div>
