@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Northeast Zouk — World-champion Brazilian Zouk in Rochester, NY</title>
+<title>Northeast Zouk — Brazilian Zouk classes in Rochester, NY</title>
+<meta name="description" content="Brazilian Zouk classes in Rochester, NY. Free beginner class every Wednesday at 7pm — no partner, no experience needed. Taught by 2024 World Champions Pedro Castro & Ana Reis.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 48'%3E%3Cpath d='M40 24C34 14 18 14 18 24C18 34 34 34 40 24C46 14 62 14 62 24C62 34 46 34 40 24Z' fill='none' stroke='%231A1A1A' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M61 13.5C61 13.5 55.5 9.6 55.5 6.6C55.5 4.7 57.3 3.6 58.9 4.5C59.8 5 60.6 6 61 6.9C61.4 6 62.2 5 63.1 4.5C64.7 3.6 66.5 4.7 66.5 6.6C66.5 9.6 61 13.5 61 13.5Z' fill='%23B5462C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,22 +12,19 @@
 <style>
   /* ============ DESIGN TOKENS ============ */
   :root {
-    /* Color */
-    --ink:        #1A1A1A;   /* primary text, near-black */
-    --ink-soft:   #2E2A26;   /* warm dark for body */
-    --paper:      #F5EFE6;   /* cream background */
-    --paper-2:    #EAE2D4;   /* deeper cream for sections */
-    --paper-3:    #FAF6EF;   /* lightest cream */
-    --rust:       #B5462C;   /* signature accent — terracotta/cinnabar */
-    --rust-deep:  #8E331E;   /* hover/active accent */
-    --rule:       rgba(46, 42, 38, 0.25); /* hairline rules */
-    --muted:      #6B635A;   /* secondary text */
+    --ink:        #1A1A1A;
+    --ink-soft:   #2E2A26;
+    --paper:      #F5EFE6;
+    --paper-2:    #EAE2D4;
+    --paper-3:    #FAF6EF;
+    --rust:       #B5462C;
+    --rust-deep:  #8E331E;
+    --rule:       rgba(46, 42, 38, 0.25);
+    --muted:      #6B635A;
 
-    /* Type */
     --display: 'Fraunces', 'Times New Roman', serif;
     --body:    'Inter Tight', -apple-system, sans-serif;
 
-    /* Scale */
     --step--1: clamp(0.83rem, 0.78rem + 0.2vw, 0.95rem);
     --step-0:  clamp(1rem, 0.94rem + 0.3vw, 1.15rem);
     --step-1:  clamp(1.2rem, 1.1rem + 0.4vw, 1.4rem);
@@ -35,7 +33,6 @@
     --step-4:  clamp(2.8rem, 2.2rem + 2.6vw, 4.5rem);
     --step-5:  clamp(4rem, 3rem + 4.5vw, 7.5rem);
 
-    /* Space */
     --gutter: clamp(1.25rem, 2vw, 2rem);
     --max-w: 1240px;
   }
@@ -52,20 +49,11 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip; /* guard against any horizontal scroll on small screens */
   }
   img { max-width: 100%; display: block; }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; cursor: pointer; border: none; background: none; }
-
-  /* Subtle paper grain */
-  body::before {
-    content: "";
-    position: fixed; inset: 0;
-    pointer-events: none;
-    z-index: 100;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
 
   /* ============ TYPOGRAPHY ============ */
   .display {
@@ -119,15 +107,12 @@
     color: var(--ink);
     display: flex; align-items: center; gap: 0.5rem;
   }
-  .logo .heart { color: var(--rust); font-size: 0.8em; }
   .logo-mark {
-    height: 1.6em;
+    height: 1.9em;
     width: auto;
     display: inline-block;
     flex: none;
   }
-  .logo-mark .inf { stroke: currentColor; }
-  .logo-mark .heart-fill { fill: var(--rust); }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
   .nav-links a {
     font-size: var(--step--1);
@@ -150,6 +135,11 @@
   .nav-cta:hover { background: var(--rust-deep); }
   @media (max-width: 720px) {
     .nav-links a:not(.nav-cta) { display: none; }
+  }
+  /* On phones the wordmark + CTA overflow — keep the mark, drop the redundant text */
+  @media (max-width: 560px) {
+    .logo-word { display: none; }
+    .logo-mark { height: 1.8em; }
   }
 
   /* ============ HERO ============ */
@@ -205,7 +195,6 @@
   .btn .arrow { transition: transform 0.2s; }
   .btn:hover .arrow { transform: translateX(3px); }
 
-  /* Hero visual */
   .hero-visual {
     position: relative;
     aspect-ratio: 4/5;
@@ -237,115 +226,7 @@
     font-style: normal;
   }
 
-  /* Floating credential badge */
-  .badge {
-    position: absolute;
-    top: -1.5rem; right: -1.5rem;
-    background: var(--paper-3);
-    border: 1px solid var(--rule);
-    border-radius: 50%;
-    width: 130px; height: 130px;
-    display: flex; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 1rem;
-    box-shadow: 0 10px 30px -8px rgba(46,42,38,0.2);
-    transform: rotate(-8deg);
-  }
-  .badge-text {
-    font-family: var(--display);
-    font-size: 0.78rem;
-    line-height: 1.2;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .badge-text strong {
-    display: block;
-    color: var(--rust);
-    font-weight: 600;
-    font-size: 0.85rem;
-    margin-bottom: 0.2rem;
-  }
-  @media (max-width: 900px) {
-    .badge { width: 100px; height: 100px; top: -1rem; right: 1rem; }
-    .badge-text { font-size: 0.7rem; }
-  }
-
-  /* ============ MARQUEE ============ */
-  .marquee {
-    background: var(--ink);
-    color: var(--paper-3);
-    padding: 1.25rem 0;
-    overflow: hidden;
-    border-block: 1px solid var(--ink);
-  }
-  .marquee-track {
-    display: flex;
-    gap: 3rem;
-    white-space: nowrap;
-    animation: marquee 35s linear infinite;
-    font-family: var(--display);
-    font-size: var(--step-2);
-    font-style: italic;
-    font-weight: 400;
-  }
-  .marquee-item { display: inline-flex; align-items: center; gap: 3rem; }
-  .marquee-item::after {
-    content: "✦";
-    color: var(--rust);
-    font-style: normal;
-    font-size: 0.7em;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-
-  /* ============ ABOUT (Our Story) ============ */
-  .about { background: var(--paper-2); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: start;
-  }
-  @media (max-width: 800px) {
-    .about-grid { grid-template-columns: 1fr; }
-  }
-  .about h2 {
-    font-size: var(--step-3);
-    margin: 1rem 0 0;
-    max-width: 12ch;
-  }
-  .about-body p {
-    font-size: var(--step-1);
-    line-height: 1.55;
-    margin: 0 0 1.5rem;
-    max-width: 60ch;
-  }
-  .about-body p:first-child::first-letter {
-    font-family: var(--display);
-    font-size: 4.5em;
-    float: left;
-    line-height: 0.8;
-    margin: 0.05em 0.1em 0 0;
-    color: var(--rust);
-    font-weight: 500;
-  }
-  .pull-quote {
-    border-left: 3px solid var(--rust);
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    font-family: var(--display);
-    font-style: italic;
-    font-size: var(--step-2);
-    line-height: 1.3;
-    color: var(--ink);
-    margin: 2rem 0;
-  }
-
-  /* ============ INSTRUCTORS ============ */
-  .instructors {
-    position: relative;
-  }
+  /* ============ SECTION HEAD ============ */
   .section-head {
     display: flex; align-items: end; justify-content: space-between;
     gap: 2rem;
@@ -366,77 +247,10 @@
     text-align: right;
     max-width: 28ch;
   }
+  .section-head .meta a { color: var(--rust); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 700px) {
     .section-head { flex-direction: column; align-items: start; }
     .section-head .meta { text-align: left; }
-  }
-
-  .instructor-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(1.5rem, 4vw, 3rem);
-  }
-  @media (max-width: 700px) {
-    .instructor-row { grid-template-columns: 1fr; }
-  }
-  .instructor {
-    display: flex; flex-direction: column;
-  }
-  .instructor-photo {
-    aspect-ratio: 3/4;
-    background: linear-gradient(160deg, #3d2a20, #1f1612);
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-  }
-  .instructor-photo::before {
-    content: "";
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 30%, rgba(181,70,44,0.25), transparent 60%),
-      radial-gradient(ellipse at 70% 80%, rgba(0,0,0,0.4), transparent 50%);
-  }
-  .instructor-name {
-    font-family: var(--display);
-    font-size: var(--step-2);
-    font-weight: 500;
-    color: var(--ink);
-    margin: 0 0 0.25rem;
-    letter-spacing: -0.01em;
-  }
-  .instructor-title {
-    font-size: var(--step--1);
-    color: var(--rust);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-  .instructor p {
-    font-size: var(--step-0);
-    margin: 0;
-    max-width: 46ch;
-  }
-  .instructor-feature {
-    display: grid;
-    grid-template-columns: 0.85fr 1fr;
-    gap: clamp(1.5rem, 4vw, 3.5rem);
-    align-items: center;
-  }
-  @media (max-width: 760px) {
-    .instructor-feature { grid-template-columns: 1fr; }
-  }
-  .instructor-photo-single {
-    aspect-ratio: 4/5;
-    border-radius: 4px;
-    background: linear-gradient(160deg, #3d2a20, #1f1612) center/cover no-repeat;
-    box-shadow: 0 24px 50px -20px rgba(46,42,38,0.35);
-  }
-  .instructor-bios {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   /* ============ CLASSES ============ */
@@ -444,6 +258,7 @@
   .classes h2 { color: var(--paper-3); }
   .classes .section-head { border-bottom-color: rgba(245,239,230,0.2); }
   .classes .meta { color: rgba(245,239,230,0.7); }
+  .classes .meta a { color: var(--rust); }
   .class-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -488,6 +303,13 @@
     margin: 0 0 1.5rem;
     line-height: 1.5;
   }
+  .class-extra {
+    font-size: var(--step--1);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--rust);
+    margin: -0.75rem 0 1.25rem;
+  }
   .class-tag {
     display: inline-block;
     font-size: 0.72rem;
@@ -499,11 +321,42 @@
     padding: 0.3rem 0.7rem;
     border-radius: 999px;
   }
-
-  /* ============ FIRST TIME ============ */
-  .first-time {
+  .calendar-block { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .calendar-frame {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(245,239,230,0.15);
     background: var(--paper-3);
   }
+  .calendar-frame iframe {
+    width: 100%;
+    height: 620px;
+    border: 0;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    .calendar-frame iframe { height: 460px; }
+  }
+  .class-note {
+    font-size: var(--step--1);
+    color: rgba(245,239,230,0.6);
+    margin: 1rem 0 0;
+  }
+  .travel-note {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(245,239,230,0.15);
+    max-width: 62ch;
+  }
+  .travel-note p {
+    font-size: var(--step-0);
+    color: rgba(245,239,230,0.85);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ============ FIRST TIME ============ */
+  .first-time { background: var(--paper-3); }
   .ft-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -535,6 +388,59 @@
     font-size: var(--step-0);
     margin: 0;
     color: var(--ink-soft);
+  }
+
+  /* ============ INSTRUCTORS ============ */
+  .curated-note {
+    max-width: 64ch;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .curated-note p {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .instructor-feature {
+    display: grid;
+    grid-template-columns: 0.85fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  @media (max-width: 760px) {
+    .instructor-feature { grid-template-columns: 1fr; }
+  }
+  .instructor-photo-single {
+    aspect-ratio: 4/5;
+    border-radius: 4px;
+    background: linear-gradient(160deg, #3d2a20, #1f1612) center/cover no-repeat;
+    box-shadow: 0 24px 50px -20px rgba(46,42,38,0.35);
+  }
+  .instructor-bios {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .instructor-name {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .instructor-title {
+    font-size: var(--step--1);
+    color: var(--rust);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .instructor p {
+    font-size: var(--step-0);
+    margin: 0;
+    max-width: 46ch;
   }
 
   /* ============ PRICING ============ */
@@ -585,24 +491,6 @@
   }
   .price-card.featured .price-meta { color: rgba(245,239,230,0.7); }
 
-  /* ============ CTA STRIP ============ */
-  .cta-strip {
-    text-align: center;
-    background: var(--paper);
-  }
-  .cta-strip h2 {
-    font-size: var(--step-4);
-    margin: 0 auto 1.5rem;
-    max-width: 18ch;
-  }
-  .cta-strip h2 em { color: var(--rust); font-style: italic; font-weight: 400; }
-  .cta-strip p {
-    font-size: var(--step-1);
-    max-width: 50ch;
-    margin: 0 auto 2.5rem;
-    color: var(--ink-soft);
-  }
-
   /* ============ FOOTER ============ */
   .footer {
     background: var(--ink);
@@ -634,6 +522,14 @@
     transition: color 0.2s;
   }
   .footer a:hover { color: var(--rust); }
+  .footer-logo {
+    width: 260px;
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 1.25rem;
+    /* logo art is black on transparent — invert to white for the dark footer */
+    filter: invert(1);
+  }
   .footer-tagline {
     font-family: var(--display);
     font-style: italic;
@@ -653,217 +549,25 @@
     gap: 1rem;
   }
 
-  /* ============ ETHOS LINE ============ */
-  .ethos {
-    background: var(--ink);
-    text-align: center;
-    padding-block: clamp(3.5rem, 6vw, 6rem);
-  }
-  .ethos-line {
-    font-family: var(--display);
-    font-size: var(--step-3);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--paper-3);
-    max-width: 22ch;
-    margin: 0 auto 1rem;
-    line-height: 1.2;
-  }
-  .ethos-line em {
-    color: var(--rust);
-    font-style: normal;
-  }
-  .ethos-sub {
-    font-size: var(--step-0);
-    color: rgba(245,239,230,0.6);
-    max-width: 46ch;
-    margin: 0 auto;
-  }
-
-  /* ============ TESTIMONIALS ============ */
-  .testimonials { background: var(--paper-3); }
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-  .testimonial-card {
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 2rem;
-    background: var(--paper);
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  .testimonial-quote {
-    font-family: var(--display);
-    font-style: italic;
-    font-size: var(--step-1);
-    line-height: 1.45;
-    color: var(--ink);
+  /* ============ INSTRUCTOR VIDEO ============ */
+  .video-frame {
     position: relative;
-  }
-  .testimonial-quote::before {
-    content: "\201C";
-    font-size: 3em;
-    color: var(--rust);
-    line-height: 0;
-    vertical-align: -0.4em;
-    margin-right: 0.1em;
-    font-style: normal;
-  }
-  .testimonial-meta {
-    margin-top: auto;
-    border-top: 1px solid var(--rule);
-    padding-top: 1rem;
-  }
-  .testimonial-name {
-    font-weight: 600;
-    font-size: var(--step--1);
-    color: var(--ink);
-    letter-spacing: 0.04em;
-  }
-  .testimonial-detail {
-    font-size: var(--step--1);
-    color: var(--muted);
-    margin-top: 0.15rem;
-  }
-
-  /* ============ EMAIL CAPTURE ============ */
-  .email-capture {
-    background: var(--rust);
-    text-align: center;
-  }
-  .email-capture h2 {
-    font-size: var(--step-3);
-    color: var(--paper-3);
-    margin: 0 auto 0.75rem;
-    max-width: 20ch;
-  }
-  .email-capture p {
-    font-size: var(--step-0);
-    color: rgba(245,239,230,0.85);
-    max-width: 44ch;
-    margin: 0 auto 2rem;
-  }
-  .email-form {
-    display: flex;
-    gap: 0.75rem;
-    max-width: 480px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .email-form input[type="email"] {
-    flex: 1 1 240px;
-    padding: 0.9rem 1.25rem;
-    border: none;
-    border-radius: 999px;
-    font: inherit;
-    font-size: var(--step-0);
-    background: var(--paper-3);
-    color: var(--ink);
-    outline: none;
-    min-width: 0;
-  }
-  .email-form input[type="email"]::placeholder { color: var(--muted); }
-  .email-form button[type="submit"] {
-    padding: 0.9rem 1.6rem;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--paper-3);
-    font: inherit;
-    font-size: var(--step-0);
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    white-space: nowrap;
-  }
-  .email-form button[type="submit"]:hover {
-    background: var(--rust-deep);
-    transform: translateY(-1px);
-  }
-  .email-note {
-    font-size: var(--step--1);
-    color: rgba(245,239,230,0.65);
-    margin-top: 1rem;
-  }
-
-  /* ============ ABOUT FIGURE ============ */
-  .about-figure { margin: 2.25rem 0 0; }
-  .about-figure img {
-    width: 100%;
+    aspect-ratio: 16/9;
     border-radius: 4px;
-    box-shadow: 0 20px 44px -20px rgba(46,42,38,0.4);
-  }
-  .about-figure figcaption {
-    font-family: var(--display);
-    font-style: italic;
-    color: var(--muted);
-    font-size: var(--step--1);
-    margin-top: 0.7rem;
-  }
-
-  /* ============ VIDEO ACCENTS (distributed) ============ */
-  .clip {
-    position: relative;
-    aspect-ratio: 9 / 16;
-    border-radius: 6px;
     overflow: hidden;
     background: #1a1a1a;
-    box-shadow: 0 18px 40px -20px rgba(46,42,38,0.4);
   }
-  .clip video {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .clip::after {
-    content: "";
+  .video-frame iframe {
     position: absolute; inset: 0;
-    box-shadow: inset 0 -40px 50px -30px rgba(0,0,0,0.5);
-    pointer-events: none;
+    width: 100%; height: 100%;
+    border: 0;
   }
-  .media-col { width: 100%; max-width: 300px; margin-inline: auto; }
-  .media-cap {
+  .video-cap {
     font-family: var(--display);
     font-style: italic;
     color: var(--muted);
     font-size: var(--step--1);
-    margin: 0.7rem 0 0;
-    text-align: center;
-  }
-  /* section layouts that pair content with a video accent */
-  .with-media { display: grid; gap: clamp(1.75rem, 4vw, 3rem); }
-  @media (min-width: 860px) {
-    .ft-layout      { grid-template-columns: 1fr 300px; align-items: start; }
-    .ft-layout .ft-grid { grid-template-columns: repeat(2, 1fr); }
-    .classes-layout { grid-template-columns: 300px 1fr; align-items: start; }
-    .cta-layout     { grid-template-columns: 1fr 300px; align-items: center; text-align: left; }
-    .cta-layout h2, .cta-layout p { margin-left: 0; }
-  }
-
-  /* ============ TESTIMONIALS BANNER ============ */
-  .testi-banner { margin: 0 0 clamp(2.5rem, 5vw, 4rem); }
-  .testi-banner img,
-  .testi-banner video {
-    width: 100%;
-    aspect-ratio: 16/7;
-    object-fit: cover;
-    object-position: center 35%;
-    border-radius: 6px;
-    box-shadow: 0 24px 50px -22px rgba(46,42,38,0.4);
-    display: block;
-  }
-  .testi-banner figcaption {
-    font-family: var(--display);
-    font-style: italic;
-    color: var(--muted);
-    font-size: var(--step--1);
-    margin-top: 0.8rem;
-    text-align: center;
+    margin: 0.75rem 0 0;
   }
 
   /* ============ FADE-IN ============ */
@@ -876,6 +580,10 @@
     opacity: 1;
     transform: translateY(0);
   }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -884,16 +592,12 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="#" class="logo" aria-label="Northeast Zouk — home">
-        <svg class="logo-mark" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-          <path class="inf" d="M40 24C34 14 18 14 18 24C18 34 34 34 40 24C46 14 62 14 62 24C62 34 46 34 40 24Z" stroke-width="2.6" stroke-linejoin="round"/>
-          <path class="heart-fill" d="M61 13.5C61 13.5 55.5 9.6 55.5 6.6C55.5 4.7 57.3 3.6 58.9 4.5C59.8 5 60.6 6 61 6.9C61.4 6 62.2 5 63.1 4.5C64.7 3.6 66.5 4.7 66.5 6.6C66.5 9.6 61 13.5 61 13.5Z"/>
-        </svg>
-        Northeast Zouk
+        <img class="logo-mark" src="images/logo-mark.png" alt="" aria-hidden="true" width="432" height="150">
+        <span class="logo-word">Northeast Zouk</span>
       </a>
       <nav class="nav-links">
-        <a href="#story">Our Story</a>
-        <a href="#instructors">Pedro &amp; Ana</a>
         <a href="#classes">Classes</a>
+        <a href="#instructors">Pedro &amp; Ana</a>
         <a href="#pricing">Pricing</a>
         <a href="#classes" class="nav-cta">Join Wednesday Free</a>
       </nav>
@@ -904,7 +608,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="hero-eyebrow eyebrow">Rochester · Buffalo · Syracuse</div>
+        <div class="hero-eyebrow eyebrow">Brazilian Zouk · Rochester, NY</div>
         <h1 class="display">
           Ever wanted to try <span class="italic-serif">Brazilian Zouk?</span>
         </h1>
@@ -915,9 +619,9 @@
         </p>
         <div class="hero-ctas">
           <a href="#classes" class="btn btn-primary">
-            Come Wednesday — it's free <span class="arrow">→</span>
+            See the schedule <span class="arrow">→</span>
           </a>
-          <a href="#story" class="btn btn-ghost">What is Zouk?</a>
+          <a href="#instructors" class="btn btn-ghost">Meet the teachers</a>
         </div>
       </div>
       <div style="position:relative;">
@@ -930,58 +634,6 @@
     </div>
   </section>
 
-  <!-- ============ OUR STORY ============ -->
-  <section class="about" id="story">
-    <div class="wrap about-grid reveal">
-      <div>
-        <div class="eyebrow">Our Story</div>
-        <h2 class="display">A small studio with a big lineage.</h2>
-        <figure class="about-figure">
-          <img src="images/kaylyn-jr-zoukrocs.jpg" alt="Kaylyn Morton and JR Lam, founders of Northeast Zouk" loading="lazy">
-          <figcaption>Kaylyn &amp; JR — ten years in.</figcaption>
-        </figure>
-      </div>
-      <div class="about-body">
-        <p>
-          For Kaylyn Morton and JR Lam, Brazilian Zouk has been a cornerstone of the
-          last ten years — a hobby that quietly became a way of life. They've danced
-          in Toronto, in LA, and all around the Zouk circuit, following the music and
-          the connection wherever it led.
-        </p>
-        <div class="pull-quote">
-          "The more people dancing Zouk, the better. That means making it easy to start."
-        </div>
-        <p>
-          Eventually they wanted to plant roots — to build a home for this dance
-          instead of always traveling to find it. That's Northeast Zouk. And it's why
-          Pedro Castro and Ana Reis, 2024 Brazilian Zouk World Champions, are now in
-          year two of a residency across Western New York with us — teaching every
-          week, and keeping Wednesday nights free and open to anyone who walks in.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ETHOS LINE ============ -->
-  <section class="ethos">
-    <div class="wrap reveal">
-      <p class="ethos-line">
-        The more people dancing Zouk, the better.<br>
-        That means <em>the door stays open.</em>
-      </p>
-      <p class="ethos-sub">
-        Wednesday Level 1 is free every week — not as a promotion, but as a principle.
-        The school is community-funded so the teaching stays world-class and the door stays open.
-      </p>
-      <figure style="margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;">
-        <div class="clip" style="aspect-ratio:16/9; max-width:680px; margin:0 auto;">
-          <video src="videos/demo-clip.mp4" poster="videos/demo-clip.jpg" muted loop playsinline preload="none" aria-label="Dancers on the floor at a Brazilian Zouk night in Rochester"></video>
-        </div>
-        <figcaption class="media-cap" style="color: rgba(245,239,230,0.55);">A regular night in Rochester.</figcaption>
-      </figure>
-    </div>
-  </section>
-
   <!-- ============ FIRST TIME ============ -->
   <section class="first-time">
     <div class="wrap reveal">
@@ -991,112 +643,27 @@
           <h2 class="display">Here's what to know.</h2>
         </div>
       </div>
-      <div class="with-media ft-layout">
-        <div class="ft-grid">
-          <div class="ft-item">
-            <div class="ft-num">01</div>
-            <h3>What to wear</h3>
-            <p>Comfortable clothes and soft-soled shoes you can move in. No heels, no flip flops.</p>
-          </div>
-          <div class="ft-item">
-            <div class="ft-num">02</div>
-            <h3>When to arrive</h3>
-            <p>10–15 minutes early. Settle in, say hi, meet a few people before class starts.</p>
-          </div>
-          <div class="ft-item">
-            <div class="ft-num">03</div>
-            <h3>Need a partner?</h3>
-            <p>No. Come solo. We rotate partners throughout class — everyone dances with everyone.</p>
-          </div>
-          <div class="ft-item">
-            <div class="ft-num">04</div>
-            <h3>Parking</h3>
-            <p>Free, on site. The door is on Pitkin Street — come straight in, we'll be there.</p>
-          </div>
+      <div class="ft-grid">
+        <div class="ft-item">
+          <div class="ft-num">01</div>
+          <h3>What to wear</h3>
+          <p>Comfortable clothes and soft-soled shoes you can move in. No heels, no flip flops.</p>
         </div>
-        <figure class="media-col" style="margin:0;">
-          <div class="clip">
-            <video src="videos/class-1.mp4" poster="videos/class-1.jpg" muted loop playsinline preload="none" aria-label="A Brazilian Zouk class in progress"></video>
-          </div>
-          <figcaption class="media-cap">What a Wednesday looks like.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CODE OF CONDUCT ============ -->
-  <section class="first-time" id="conduct" style="padding-top: 0; padding-bottom: clamp(4rem,8vw,8rem);">
-    <div class="wrap">
-      <div style="border-top: 1px solid var(--rule); padding-top: 2rem; max-width: 62ch;">
-        <div class="eyebrow" style="margin-bottom: 0.75rem;">Community standards</div>
-        <p style="font-size: var(--step-0); margin: 0 0 0.75rem; color: var(--ink-soft);">
-          Northeast Zouk is an explicitly welcoming space. We ask everyone — regardless of experience,
-          background, or who they came with — to treat every partner with care and to accept a
-          "no thank you" without question or comment. Consent to one dance is not consent to another.
-        </p>
-        <p style="font-size: var(--step-0); margin: 0; color: var(--ink-soft);">
-          If anything in class ever makes you uncomfortable, tell Kaylyn, JR, Pedro, or Ana directly —
-          or email us at <a href="mailto:dancing@northeastzouk.com" style="color: var(--rust); text-decoration: underline; text-underline-offset: 2px;">dancing@northeastzouk.com</a>.
-          We take it seriously.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ INSTRUCTORS ============ -->
-  <section class="instructors" id="instructors">
-    <div class="wrap reveal">
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">The teachers</div>
-          <h2 class="display">Pedro Castro &amp;<br>Ana Reis.</h2>
+        <div class="ft-item">
+          <div class="ft-num">02</div>
+          <h3>When to arrive</h3>
+          <p>10–15 minutes early. Settle in, say hi, meet a few people before class starts.</p>
         </div>
-        <div class="meta">
-          Both trained in Rio. Both 2024 World Champions.<br>
-          Teaching here every week.
+        <div class="ft-item">
+          <div class="ft-num">03</div>
+          <h3>Need a partner?</h3>
+          <p>No. Come solo. We rotate partners throughout class — everyone dances with everyone.</p>
         </div>
-      </div>
-      <div class="instructor-feature">
-        <div class="instructor-photo-single" style="background-image:url('images/ana-instructor.jpeg'); background-position:center top;"></div>
-        <div class="instructor-bios">
-          <div class="instructor">
-            <h3 class="instructor-name">Pedro Castro</h3>
-            <div class="instructor-title">Lead Instructor</div>
-            <p>
-              Pedro grew up in Rio and trained at Alex de Carvalho's school — where
-              Brazil's best Zouk teachers come from. He won the 2024 World Championship.
-              He teaches technique with the patience of someone who's been living inside
-              this dance his whole life.
-            </p>
-          </div>
-          <div class="instructor">
-            <h3 class="instructor-name">Ana Reis</h3>
-            <div class="instructor-title">Lead Instructor</div>
-            <p>
-              Ana has been dancing since she was five. She trained in Rio, won the
-              2024 World Championship, and now spends her weeks teaching connection —
-              the thing that makes Zouk feel unlike every other partner dance you've
-              tried. She makes it click fast.
-            </p>
-          </div>
+        <div class="ft-item">
+          <div class="ft-num">04</div>
+          <h3>Parking</h3>
+          <p>Free, on site. The door is on Pitkin Street — come straight in, we'll be there.</p>
         </div>
-      </div>
-
-      <div style="margin-top: clamp(2.5rem, 5vw, 4rem);">
-        <div class="eyebrow" style="margin-bottom: 1rem;">Watch them dance</div>
-        <div style="position:relative; aspect-ratio:16/9; border-radius:4px; overflow:hidden; background:#1a1a1a;">
-          <iframe
-            src="https://www.youtube.com/embed/eV0Yx5la4I4?rel=0"
-            title="Pedro and Ana — 1st Place Showtime Division, Brazilian Zouk World Championships"
-            style="position:absolute; inset:0; width:100%; height:100%; border:0;"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
-        </div>
-        <p style="font-family:var(--display); font-style:italic; color:var(--muted); font-size:var(--step--1); margin:0.75rem 0 0;">
-          1st place, Showtime Division — Brazilian Zouk World Championships 2024
-        </p>
       </div>
     </div>
   </section>
@@ -1110,16 +677,10 @@
           <h2 class="display">Classes this week.</h2>
         </div>
         <div class="meta">
-          Elevate Dance Center · 17 Pitkin Street, Rochester.
+          Elevate Dance Center<br>
+          <a href="https://maps.google.com/?q=17+Pitkin+Street+Rochester+NY+14607" target="_blank" rel="noopener">17 Pitkin Street, Rochester, NY</a>
         </div>
       </div>
-      <div class="with-media classes-layout">
-      <figure class="media-col" style="margin:0;">
-        <div class="clip">
-          <video src="videos/class-2.mp4" poster="videos/class-2.jpg" muted loop playsinline preload="none" aria-label="Partners dancing in a Brazilian Zouk class"></video>
-        </div>
-        <figcaption class="media-cap" style="color: rgba(245,239,230,0.7);">Connection, in practice.</figcaption>
-      </figure>
       <div class="class-grid">
         <div class="class-card">
           <div class="class-day italic-serif">Wednesday</div>
@@ -1129,6 +690,7 @@
             Start here. Learn how Zouk moves and why it feels different from
             everything else. No experience, no partner, no pressure.
           </p>
+          <p class="class-extra">We rotate partners throughout class to help you learn faster and meet your new community.</p>
           <span class="class-tag">Free every week</span>
         </div>
         <div class="class-card">
@@ -1162,67 +724,79 @@
           <span class="class-tag">Technique</span>
         </div>
       </div>
+
+      <!-- Monthly calendar — shows the actual class dates, including any skipped weeks.
+           Source: Northeast Zouk Google Calendar. The calendar must be set to public
+           (Settings → Access permissions → "Make available to public") or this shows blank. -->
+      <div class="calendar-block">
+        <div class="eyebrow" style="color: var(--rust); margin-bottom: 1rem;">Dates this month</div>
+        <div class="calendar-frame">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=c_16ecf7dfb94011fe2ab147c9c7bc579236367ec03f3fc63834e0860db2be2b8c%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH&showTitle=0&showPrint=0&showCalendars=0&showTz=0&showNav=1"
+            title="Northeast Zouk class calendar"
+            loading="lazy"></iframe>
+        </div>
+        <p class="class-note">Weeks we're off (holidays, travel) are taken off the calendar — if it's not here, there's no class that night.</p>
+      </div>
+
+      <div class="travel-note">
+        <div class="eyebrow" style="color: var(--rust); margin-bottom: 0.6rem;">Coming from out of town?</div>
+        <p>Driving in from Buffalo or Syracuse? We're easily accessible via I-490 with free, convenient on-site parking.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============ TESTIMONIALS ============ -->
-  <section class="testimonials" id="testimonials">
+  <!-- ============ INSTRUCTORS ============ -->
+  <section class="instructors" id="instructors">
     <div class="wrap reveal">
-      <figure class="testi-banner">
-        <div style="position:relative; aspect-ratio:16/9; border-radius:6px; overflow:hidden; background:#1a1a1a; box-shadow:0 24px 50px -22px rgba(46,42,38,0.4);">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">The teachers</div>
+          <h2 class="display">Pedro Castro &amp;<br>Ana Reis.</h2>
+        </div>
+        <div class="meta">
+          Both trained in Rio. Both 2024 World Champions.<br>
+          Teaching here every week.
+        </div>
+      </div>
+      <div class="curated-note">
+        <div class="eyebrow" style="margin-bottom: 0.75rem;">Curated training</div>
+        <p>We focus on high-quality, consistent instruction with world-class artists. Because our instructors travel globally, we maintain a focused class environment that allows you to master the technique, build strong foundations, and learn directly from the best in the world.</p>
+      </div>
+      <div class="instructor-feature">
+        <div class="instructor-photo-single" style="background-image:url('images/ana-instructor.jpeg'); background-position:center top;"></div>
+        <div class="instructor-bios">
+          <div class="instructor">
+            <h3 class="instructor-name">Pedro Castro &amp; Ana Reis</h3>
+            <div class="instructor-title">Lead Instructors · 2024 World Champions</div>
+            <p>
+              Pedro and Ana grew up dancing in Rio and trained at Alex de Carvalho's
+              school — where Brazil's best Zouk teachers come from. In 2024 they won the
+              Brazilian Zouk World Championship, and now they teach here every week.
+            </p>
+            <p style="margin-top: 1rem;">
+              They break the dance down with the patience of people who've lived inside
+              it their whole lives, focusing on connection — the thing that makes Zouk
+              feel unlike any other partner dance. They make it click fast.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: clamp(2.5rem, 5vw, 4rem);">
+        <div class="eyebrow" style="margin-bottom: 1rem;">Watch them dance</div>
+        <div class="video-frame">
           <iframe
-            src="https://www.youtube.com/embed/zowQo0Gr3OQ?rel=0"
-            title="Brazilian Zouk in Rochester — Pedro and Ana"
-            style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+            src="https://www.youtube.com/embed/eV0Yx5la4I4?rel=0"
+            title="Pedro and Ana — 1st Place Showtime Division, Brazilian Zouk World Championships"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
             loading="lazy">
           </iframe>
         </div>
-        <figcaption>This is Brazilian Zouk.</figcaption>
-      </figure>
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">What students say</div>
-          <h2 class="display">Real words from<br>the room.</h2>
-        </div>
-        <div class="meta">
-          Rochester locals. Most had never<br>danced partner dance before.
-        </div>
-      </div>
-      <!-- PLACEHOLDER TESTIMONIALS — replace names and quotes with real ones before publishing -->
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
-          <p class="testimonial-quote">
-            I came alone on a Wednesday not knowing a soul. By the end of class I'd danced with
-            everyone in the room. I was back the next week with two friends.
-          </p>
-          <div class="testimonial-meta">
-            <div class="testimonial-name">Sarah M.</div>
-            <div class="testimonial-detail">Started Level 1, now in Level 2</div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <p class="testimonial-quote">
-            Pedro explains things in a way that actually makes sense. I've taken other dance
-            classes and always felt behind — here I felt like I was actually learning.
-          </p>
-          <div class="testimonial-meta">
-            <div class="testimonial-name">James T.</div>
-            <div class="testimonial-detail">3 months in, Level 2 &amp; Head Movement</div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <p class="testimonial-quote">
-            I was nervous about partner dance as a solo woman. The rotating partners format
-            made it easy — nobody's stuck with anyone, everyone's just there to learn.
-          </p>
-          <div class="testimonial-meta">
-            <div class="testimonial-name">Dana K.</div>
-            <div class="testimonial-detail">6-week member</div>
-          </div>
-        </div>
+        <p class="video-cap">
+          1st place, Showtime Division — Brazilian Zouk World Championships 2024
+        </p>
       </div>
     </div>
   </section>
@@ -1235,7 +809,7 @@
           <div class="eyebrow">Pricing</div>
           <h2 class="display">Simple, honest, no contracts.</h2>
         </div>
-        <div class="meta">Venmo or cash. We make it easy.</div>
+        <div class="meta">Pay by Venmo <a href="https://venmo.com/u/northeastzouk" target="_blank" rel="noopener">@northeastzouk</a> or cash.</div>
       </div>
       <div class="price-grid">
         <div class="price-card">
@@ -1262,77 +836,22 @@
     </div>
   </section>
 
-  <!-- ============ EMAIL CAPTURE ============ -->
-  <section class="email-capture">
-    <div class="wrap reveal">
-      <div class="eyebrow" style="color: rgba(245,239,230,0.7); margin-bottom: 1rem;">Stay in the loop</div>
-      <h2 class="display">New classes, events,<br>and updates — first.</h2>
-      <p>No spam. Just the occasional note when something is worth knowing about.</p>
-      <!-- Replace the form action URL with your marketing tool's embed endpoint -->
-      <form
-        class="email-form"
-        action="https://northeastzouk.us21.list-manage.com/subscribe/post"
-        method="POST"
-        target="_blank"
-        novalidate>
-        <!-- Mailchimp hidden fields — replace u= and id= values from your audience embed code -->
-        <input type="hidden" name="u" value="REPLACE_WITH_MAILCHIMP_U">
-        <input type="hidden" name="id" value="REPLACE_WITH_MAILCHIMP_ID">
-        <input
-          type="email"
-          name="EMAIL"
-          placeholder="your@email.com"
-          required
-          autocomplete="email">
-        <button type="submit">Send me updates →</button>
-      </form>
-      <p class="email-note">Unsubscribe any time.</p>
-    </div>
-  </section>
-
-  <!-- ============ CTA STRIP ============ -->
-  <section class="cta-strip">
-    <div class="wrap reveal with-media cta-layout">
-      <div>
-        <div class="eyebrow">Come dance</div>
-        <h2 class="display">Wednesday at seven. <em>We'll save you a spot.</em></h2>
-        <p>
-          Wednesday is free, every week — no partner needed, no experience required.
-          The room is warm, the music is good, and you'll be glad you came.
-        </p>
-        <a href="#classes" class="btn btn-primary">Reserve your spot <span class="arrow">→</span></a>
-      </div>
-      <figure class="media-col" style="margin:0;">
-        <div class="clip">
-          <video src="videos/class-3.mp4" poster="videos/class-3.jpg" muted loop playsinline preload="none" aria-label="Dancers during a Brazilian Zouk class"></video>
-        </div>
-      </figure>
-    </div>
-  </section>
-
   <!-- ============ FOOTER ============ -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <div class="logo" style="color: var(--paper-3); margin-bottom: 1rem;">
-            <svg class="logo-mark" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <path class="inf" d="M40 24C34 14 18 14 18 24C18 34 34 34 40 24C46 14 62 14 62 24C62 34 46 34 40 24Z" stroke-width="2.6" stroke-linejoin="round"/>
-              <path class="heart-fill" d="M61 13.5C61 13.5 55.5 9.6 55.5 6.6C55.5 4.7 57.3 3.6 58.9 4.5C59.8 5 60.6 6 61 6.9C61.4 6 62.2 5 63.1 4.5C64.7 3.6 66.5 4.7 66.5 6.6C66.5 9.6 61 13.5 61 13.5Z"/>
-            </svg>
-            Northeast Zouk
-          </div>
+          <img class="footer-logo" src="images/logo-northeast-zouk.png" alt="Northeast Zouk" width="600" height="395">
           <p class="footer-tagline">
-            World-champion Brazilian Zouk, taught weekly across Western New York.
+            World-champion Brazilian Zouk, taught weekly in Rochester, NY.
           </p>
         </div>
         <div>
           <h4>Visit</h4>
           <ul>
             <li>Elevate Dance Center</li>
-            <li>17 Pitkin Street</li>
+            <li><a href="https://maps.google.com/?q=17+Pitkin+Street+Rochester+NY+14607" target="_blank" rel="noopener">17 Pitkin Street</a></li>
             <li>Rochester, NY 14607</li>
-            <li style="margin-top:0.75rem; color: rgba(245,239,230,0.6);">Home base: Rochester.<br>Also dancing in Buffalo &amp; Syracuse.</li>
           </ul>
         </div>
         <div>
@@ -1340,15 +859,13 @@
           <ul>
             <li><a href="mailto:dancing@northeastzouk.com">Email us</a></li>
             <li><a href="https://www.instagram.com/northeastzouk/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Waiver form</a></li>
-            <li><a href="#conduct">Code of Conduct</a></li>
+            <li><a href="https://docs.google.com/forms/d/1n7-Mr-RsgcyC3P97hP_Y2CjXvo7B8sm0XC6__nK64Qc/viewform" target="_blank" rel="noopener">Waiver form</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <div>© 2026 Northeast Zouk</div>
-        <div>Made with ♥ in Rochester</div>
+        <div>Made with ♥ in Buffalo</div>
       </div>
     </div>
   </footer>
@@ -1364,16 +881,6 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // Play class clips only while on screen (saves bandwidth, satisfies autoplay policy)
-    const clipObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        const v = e.target;
-        if (e.isIntersecting) { v.play().catch(() => {}); }
-        else { v.pause(); }
-      });
-    }, { threshold: 0.4 });
-    document.querySelectorAll('video[loop]').forEach(v => clipObserver.observe(v));
   </script>
 </body>
 </html>
